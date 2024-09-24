@@ -1,7 +1,7 @@
 function yr_computeMSdurations()
 
-monkey='Legolas';
-% monkey='Gandalf';
+% monkey='Legolas';
+monkey='Gandalf';
 
 %load msMats of all MSs in the paper
 folder='D:\Yarden\yarden matlab files\analysis_data\blankPaperData';
@@ -54,14 +54,18 @@ for ms_id=1:(size(msMats,1)-1)
     vsdOnset=cell2mat(mainTimeMat(4,cortex_id+1));
     msFrOnsets=floor((trialMs(:,1)-vsdOnset)./10);
     msInTrial_id=find(msFrOnsets==msOnsetFr);
-    msDur=trialMs(msInTrial_id,2)-trialMs(msInTrial_id,1);
-    msDur=trialMs(msInTrial_id,6);
+    if ~isempty(msInTrial_id)
+        msDur=trialMs(msInTrial_id,2)-trialMs(msInTrial_id,1);
+        msDur=trialMs(msInTrial_id,6);
+    else
+        msDur=(cell2mat(msMats(ms_id+1,5))-cell2mat(msMats(ms_id+1,4)))*10;
+    end
     msDurations(ms_id)=msDur;
 end
 
-figure; histogram(msDurations,8);
+figure; histogram(msDurations,8,'Normalization','probability');
 title([monkey ' MS durations']);
 xlabel('duration (ms)');
-ylabel('count');
+ylabel('probability');
 
 a=1;
