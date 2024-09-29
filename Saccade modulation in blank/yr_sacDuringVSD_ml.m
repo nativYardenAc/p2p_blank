@@ -55,7 +55,7 @@ emVecsAllTrials={};
 % rndTrials2check=find(cell2mat(mainTimeMatCorrect(1,2:end))==trial2check);
 rndTrials2check=trial2check;
 
-vsdOnset=cell2mat(mainTimeMat(4,trial2check+1));
+vsdOnset=cell2mat(mainTimeMat(4,trial2check+1))-cell2mat(mainTimeMat(2,trial2check+1));
 startEManalysis=vsdOnset;
 endEManalysis=vsdOnset+3000;
 startEManalysis=floor(startEManalysis./sampleRate);
